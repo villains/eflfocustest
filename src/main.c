@@ -66,6 +66,7 @@ elm_main(int argc, char **argv)
     elm_object_part_content_set(flip, "front", createContent1(win));
     elm_object_part_content_set(flip, "back", createContent2(win));
 
+    // with or without this, no difference
     elm_object_focus_set(flip, EINA_TRUE);
 
     elm_run();
@@ -126,11 +127,15 @@ static Evas_Object *createContent1(Evas_Object *parent)
     evas_object_color_set(rect, 128, 0, 0, 255);
     //evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_repeat_events_set(rect, EINA_TRUE);
+
+    // TODO: rectangle does not appear visible... shouldn't it?
     evas_object_move(rect, 50, 50);
     evas_object_resize(rect, 100, 100);
     evas_object_show(rect);
     evas_object_event_callback_add(rect, EVAS_CALLBACK_KEY_DOWN,
         contentKeyDownCallback1, NULL);
+
+    // with or without this, no difference
     elm_object_focus_set(rect, EINA_TRUE);
     elm_table_pack(table, rect, 0, 0, 1, 1);
     evas_object_raise(rect);
