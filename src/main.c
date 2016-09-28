@@ -218,6 +218,26 @@ static Evas_Object *createContent1(Evas_Object *parent)
     evas_object_show(label);
     elm_box_pack_end(otherBox, label);
 
+    otherBox = elm_box_add(parent);
+    evas_object_size_hint_weight_set(otherBox, EVAS_HINT_EXPAND, 0.0);
+    evas_object_size_hint_align_set(otherBox, EVAS_HINT_FILL, 0.0);
+    evas_object_size_hint_fill_set(otherBox, EVAS_HINT_FILL, 0.0);
+    evas_object_show(otherBox);
+    elm_box_horizontal_set(otherBox, EINA_TRUE);
+    elm_box_pack_end(box, otherBox);
+
+    label = elm_label_add(parent);
+    evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+    elm_object_text_set(label, "abc");
+    evas_object_show(label);
+    elm_box_pack_end(otherBox, label);
+
+    label = elm_label_add(parent);
+    evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+    elm_object_text_set(label, "def");
+    evas_object_show(label);
+    elm_box_pack_end(otherBox, label);
+
     /*
     This part is based on ephoto_single_browser.c lines 2195-2203
     Thanks to okra on IRC #edevelop
