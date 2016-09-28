@@ -158,6 +158,7 @@ static Evas_Object *createContent1(Evas_Object *parent)
     Evas_Object *label = NULL;
     Evas_Object *button = NULL;
     Evas_Object *frame = NULL;
+    Evas_Object *box = NULL;
 
     table = elm_table_add(parent);
     evas_object_size_hint_weight_set(table, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -165,12 +166,20 @@ static Evas_Object *createContent1(Evas_Object *parent)
     evas_object_size_hint_fill_set(table, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(table);
 
+    box = elm_table_add(parent);
+    evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_size_hint_fill_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_show(box);
+    elm_table_pack(table, box, 0, 0, 1, 1);
+
     frame = elm_frame_add(parent);
     evas_object_size_hint_weight_set(frame, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(frame, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_size_hint_fill_set(frame, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(frame);
-    elm_table_pack(table, frame, 0, 0, 1, 1);
+    elm_box_pack_end(box, frame);
+
 
     label = elm_label_add(parent);
     evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
