@@ -159,6 +159,7 @@ static Evas_Object *createContent1(Evas_Object *parent)
     Evas_Object *button = NULL;
     Evas_Object *frame = NULL;
     Evas_Object *box = NULL;
+    Evas_Object *otherBox = NULL;
 
     table = elm_table_add(parent);
     evas_object_size_hint_weight_set(table, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -166,7 +167,7 @@ static Evas_Object *createContent1(Evas_Object *parent)
     evas_object_size_hint_fill_set(table, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(table);
 
-    box = elm_table_add(parent);
+    box = elm_box_add(parent);
     evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_size_hint_fill_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -179,7 +180,7 @@ static Evas_Object *createContent1(Evas_Object *parent)
     evas_object_size_hint_fill_set(frame, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(frame);
     elm_box_pack_end(box, frame);
-
+    //elm_table_pack(table, frame, 0, 0, 1, 1);
 
     label = elm_label_add(parent);
     evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -191,6 +192,32 @@ static Evas_Object *createContent1(Evas_Object *parent)
     elm_object_content_set(frame, label);
     //elm_table_pack(table, label, 0, 0, 1, 1);
 
+    label = elm_label_add(parent);
+    evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+    elm_object_text_set(label, "Hello, world!");
+    evas_object_show(label);
+    elm_box_pack_end(box, label);
+
+    otherBox = elm_box_add(parent);
+    evas_object_size_hint_weight_set(otherBox, EVAS_HINT_EXPAND, 0.0);
+    evas_object_size_hint_align_set(otherBox, EVAS_HINT_FILL, 0.0);
+    evas_object_size_hint_fill_set(otherBox, EVAS_HINT_FILL, 0.0);
+    evas_object_show(otherBox);
+    elm_box_horizontal_set(otherBox, EINA_TRUE);
+    elm_box_pack_end(box, otherBox);
+
+    label = elm_label_add(parent);
+    evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+    elm_object_text_set(label, "123");
+    evas_object_show(label);
+    elm_box_pack_end(otherBox, label);
+
+    label = elm_label_add(parent);
+    evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+    elm_object_text_set(label, "456");
+    evas_object_show(label);
+    elm_box_pack_end(otherBox, label);
+
     /*
     This part is based on ephoto_single_browser.c lines 2195-2203
     Thanks to okra on IRC #edevelop
@@ -200,14 +227,12 @@ static Evas_Object *createContent1(Evas_Object *parent)
     rect = elm_label_add(parent);
     elm_object_focus_allow_set(rect, EINA_TRUE);
     evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    // evas_object_smart_member_add(rect, parent);
+    evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(rect, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_size_hint_fill_set(rect, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_color_set(rect, 0, 0, 0, 0);
     //evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     // evas_object_repeat_events_set(rect, EINA_TRUE);
-
-    // TODO: rectangle does not appear visible... shouldn't it?
-    // evas_object_move(rect, 50, 50);
-    // evas_object_resize(rect, 100, 100);
     evas_object_show(rect);
     evas_object_event_callback_add(rect, EVAS_CALLBACK_KEY_DOWN,
         content1_KeyDownCallback, NULL);
@@ -215,13 +240,8 @@ static Evas_Object *createContent1(Evas_Object *parent)
     //     content1_FocusInCallback, NULL);
     // evas_object_event_callback_add(rect, EVAS_CALLBACK_FOCUS_IN,
     //     content1_FocusOutCallback, NULL);
-    
     evas_object_smart_callback_add(rect, "focused", content1_FocusedCallback, NULL);
     evas_object_smart_callback_add(rect, "unfocused", content1_UnfocusedCallback, NULL);
-
-    // with or without this, no difference
-    // elm_object_focus_set(rect, EINA_FALSE);
-    // elm_object_focus_set(rect, EINA_TRUE);
     elm_table_pack(table, rect, 0, 0, 1, 1);
     evas_object_raise(rect);
 
