@@ -20,7 +20,7 @@ keyEventCallback(void *data, int type, void *event)
         }
     }
 
-    printf("Global key press: %s\n", k);
+    // printf("Global key press: %s\n", k);
     return ECORE_CALLBACK_RENEW;
 }
 
@@ -65,6 +65,8 @@ elm_main(int argc, char **argv)
 
     flip = elm_flip_add(win);
     evas_object_size_hint_weight_set(flip, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(flip, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_size_hint_fill_set(flip, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(flip);
     elm_box_pack_end(mainBox, flip);
 
@@ -155,9 +157,20 @@ static Evas_Object *createContent1(Evas_Object *parent)
     Evas_Object *rect = NULL;
     Evas_Object *label = NULL;
     Evas_Object *button = NULL;
+    Evas_Object *frame = NULL;
 
     table = elm_table_add(parent);
+    evas_object_size_hint_weight_set(table, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(table, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_size_hint_fill_set(table, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(table);
+
+    frame = elm_frame_add(parent);
+    evas_object_size_hint_weight_set(frame, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(frame, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_size_hint_fill_set(frame, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_show(frame);
+    elm_table_pack(table, frame, 0, 0, 1, 1);
 
     label = elm_label_add(parent);
     evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -166,7 +179,8 @@ static Evas_Object *createContent1(Evas_Object *parent)
         "<br><br>Press 'f' to flip"
         "<br><br>Should be able to use 'g' to flip also...");
     evas_object_show(label);
-    elm_table_pack(table, label, 0, 0, 1, 1);
+    elm_object_content_set(frame, label);
+    //elm_table_pack(table, label, 0, 0, 1, 1);
 
     /*
     This part is based on ephoto_single_browser.c lines 2195-2203
